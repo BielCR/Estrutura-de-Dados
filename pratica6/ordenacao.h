@@ -4,9 +4,9 @@
 
 struct time {
     int numeroTime;
-    int saldoCes;
+    float saldoCes;
     int insL;
-    int pontos;
+    float pontos;
 };
 
 //Manter como especificado

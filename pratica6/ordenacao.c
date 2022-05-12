@@ -26,7 +26,6 @@ void desalocaVetor(struct time **vetor){
 //merge-sort
 void ordenacao(struct time *vetor, int n){
     mergesort(vetor, 0, n-1);
-    printf("\nentra no ordenacao");
 }
 
 void mergesort(struct time *vetor, int l, int r){
@@ -54,13 +53,17 @@ void merge(struct time * vetor, int l, int m, int r){
 
     for(int k = 0; k <= r; k++){
         if(i == tesq){
-            vetor[k] = dir[j++];
+            vetor[k] = dir[j];
+            j++;
         }else if(k == tdir){
-            vetor[k] = esq[i++];
+            vetor[k] = esq[i];
+            i++;
         }else if(compare(esq[i], dir[j]) == 1){
-            vetor[k] = esq[i++];
+            vetor[k] = esq[i];
+            i++;
         }else{
-            vetor[k] = dir[j++];
+            vetor[k] = dir[j];
+            j++;
         }
     }
 
