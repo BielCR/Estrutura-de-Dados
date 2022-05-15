@@ -24,8 +24,8 @@ int main (){
     */
     
     shellsort(upas, quantUpas);
-    
     imprime(upas, quantUpas);
+
     desalocaUpas(&upas, quantUpas);
     return 0;
 }

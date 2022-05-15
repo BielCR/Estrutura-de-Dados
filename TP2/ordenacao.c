@@ -62,11 +62,12 @@ int compara(TUpa t1, TUpa t2){
         return 1;
     else if(t2.qMedicos < t1.qMedicos)
         return 2;
-    else if(strcmp(t1.nome, t2.nome) == -1)
+    else if(strcmp(t1.nome, t2.nome) < 0)
         return 1;
-    else if(strcmp(t1.nome, t2.nome) == 1)
+    else if(strcmp(t1.nome, t2.nome) > 0)
         return 2;
-    return 3;
+    else
+        return 3;
 }
 
 void imprime(TUpa *upas, int n){
