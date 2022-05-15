@@ -1,71 +1,90 @@
 #include "ordenacao.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-
-/*
-gcc -c ordenacao.c -Wall
-$ gcc -c pratica6.c -Wall
-$ gcc ordenacao.o pratica6.o -o exe
-*/
 
 int main()
-{
+{   int cont =0;
     //enquanto houver dados
-    int n = 1;
-    int inst = 0;
-    while (n != 0) {
-        
+    while (1) {
+        int n;
         int time1, time2, pontos1, pontos2;
         int i, npartidas;
-        struct time *vetor;
+        struct time *vetor =NULL;
 
         //leia o numero de times
         scanf("%d", &n);
-
-        //se for zero, o programa acaba
-        if(n != 0){
-            //aloque o vetor
-            vetor = alocaVetor(n);
-
-            //calcula o numero de partidas
-            npartidas = n * (n - 1) / 2;
-
-            //para cada partida...
-            for (i = 0; i < npartidas; ++i) {
-                scanf("%d %d %d %d", &time1, &pontos1, &time2, &pontos2);
-                //preencher o vetor de estruturas de acordo com os dados lidos
-                vetor[time1-1].saldoCes += pontos1 - pontos2;
-                vetor[time2-1].saldoCes += pontos2 - pontos1;
-                vetor[time1-1].insL += 1;
-                vetor[time2-1].insL += 1;
-
-                vetor[time1-1].numeroTime = time1;
-                vetor[time2-1].numeroTime = time2;
-
-                if(pontos1 > pontos2){
-                    vetor[time1-1].pontos += 2;
-                    vetor[time2-1].pontos += 1;
-                }else if(pontos2 > pontos1){
-                    vetor[time2-1].pontos += 2;
-                    vetor[time1-1].pontos += 1;
-                }   
-            }
-            ordenacao(vetor, n);
-            inst++;
-        }
-
-        //ordenar os times
-
         
+        //se for zero, o programa acaba
+        if (n ==0)
+            break;
+      
+       
+        
+            
+        
+        //aloque o vetor
+        vetor = alocaVetor(n);
+       
+        //calcula o numero de partidas
+        npartidas = n * (n - 1) / 2;
 
-        //imprima o resultado
-        printf("Instancia 1\n");
-        for(int i = 0; i < n; i++){
-            printf("%d ", vetor[i].numeroTime);
+
+        //para cada partida...
+        for (i = 0; i < npartidas; ++i) {
+     
+            scanf("%d %d %d %d", &time1, &pontos1, &time2, &pontos2);
+            //preencher o vetor de estruturas de acordo com os dados lidos
+          //  printf("marcados 1: %f",vetor[time1-1].saldo.marcados);
+            //printf("marcados 2 : %f",vetor[time2-1].saldo.marcados);
+            if (pontos1>pontos2)
+            {
+                vetor[time1-1].pontos = vetor[time1-1].pontos + 2;
+                vetor[time2-1].pontos ++;
+            }
+            else{
+
+                vetor[time2-1].pontos = vetor[time2-1].pontos + 2;
+                vetor[time1-1].pontos ++;
+            }
+
+            vetor[time1-1].saldo.marcados = vetor[time1-1].saldo.marcados + pontos1;
+              //    printf("marcados1 : %f",vetor[time1-1].saldo.marcados);
+                  
+            vetor[time1-1].saldo.recebidos = vetor[time1-1].saldo.recebidos + pontos2;
+
+            vetor[time2-1].saldo.marcados = vetor[time2-1].saldo.marcados + pontos2;
+            vetor[time2-1].saldo.recebidos = vetor[time2-1].saldo.recebidos + pontos1;
+            //printf("marcados2 : %f",vetor[time2-1].saldo.marcados);
+
+
         }
+        
+        
+        //ordenar os times
+        ordenacao(vetor, n);
+        
+        cont++;
 
+         if (cont != 1) 
+           printf("\n\n");
+        //imprima o resultado
+       
+         printf("Instancia %d\n",cont);
+    
+    
+        for (int i = 0; i < n; i++)
+        {
+            printf("%d ",vetor[i].nome);
+        }
+       
+        
         //desaloque o vetor
+        desalocaVetor(&vetor);
+       
     }
-
+    printf("\n");
+   
+    
     return 0;
 }
