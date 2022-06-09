@@ -4,7 +4,7 @@
 #include "lista.h"
 
 // Manter como especificado
-void ordena(TLista *, int);
+void ordena(TLista *);
 
 /* Manter como especificado
  * Retorna:
@@ -13,6 +13,8 @@ void ordena(TLista *, int);
  *       1 se o primeiro TItem for maior que o segundo
  */
 int compare(const TAluno, const TAluno);
+
+void bilubilu(TCelula *origem, TCelula *destino);
 
 
 # endif

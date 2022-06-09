@@ -15,13 +15,13 @@ int main ()
 
 	// preencher a lista encadeada
 	TCelula aux;
-	for(int i = 0; i<n;i++){
+	for(i = 0; i<n;i++){
 		scanf("%s", aux.item.nome);
 		TListaInsereInicio(&lista, aux.item);
 	}
 
 	// ordenar a lista
-	ordena(&lista, n);
+	ordena(&lista);
 
 	// imprimir o resultado
 	aux = *lista.pPrimeiro;
@@ -29,8 +29,9 @@ int main ()
 		aux = *aux.pProx;
 	}
 
-	printf("%s", aux.item.nome);
+	printf("%s", aux.pProx->item.nome);
 	// desalocar o vetor
+
 
   	return 0;
 }

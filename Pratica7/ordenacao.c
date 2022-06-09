@@ -1,60 +1,38 @@
 #include "ordenacao.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
-void ordena(TLista *pLista, int n) {
-    insertionSort(&pLista->pPrimeiro);
-}
-
-void insertionSort(TCelula ** cabeca){
-    TCelula *ordenada = NULL;
-    TCelula *atual = *cabeca;
-
-    while(atual != NULL){
-        TCelula *prox = atual->pProx;
-
-        atual->pPrev = atual->pProx = NULL;
-
-        sortedInsert(&ordenada, atual);
-
-        atual = atual->pProx;
-    }
-
-    *cabeca = ordenada;
-}
-
-void sortedInsert(TCelula** cabeca, TCelula* novo)
+void ordena(TLista *pLista)
 {
-    TCelula* atual;
-    
-    //se a lista for vazia
-    if (*cabeca == NULL)
-        *cabeca = novo;
- 
-     
-    else if (compare((*cabeca)->item, atual->item) <= 0) {
-        novo->pProx = *cabeca;
-        novo->pProx->pPrev = novo;
-        *cabeca = novo;
-    }
- 
-    else {
-        atual = *cabeca;
- 
-        while (atual->pProx != NULL &&
-               compare(atual->pProx->item, novo->item) > 0)
-            atual = atual->pProx;
- 
-        novo->pProx = atual->pProx;
- 
-        if (atual->pProx != NULL)
-            novo->pProx->pPrev = novo;
- 
-        atual->pProx = novo;
-        novo->pPrev = atual;
-    }
+	// Get first node
+	TCelula *aux1 = pLista->pPrimeiro;
+	TCelula *aux2 = NULL;
+
+	while (aux1 != NULL){
+		aux2 = aux1->pProx;
+		while (aux2 != NULL && aux2->pPrev != NULL && compare(aux2->item, aux2->pPrev->item) == -1){
+			bilubilu(aux2, aux2->pPrev);
+			aux2 = aux2->pPrev;
+		}
+		aux1 = aux1->pProx;
+	}
 }
 
-int compare(const TAluno t1, const TAluno t2) {
-    return strcmp(t1.nome, t2.nome);
+void bilubilu(TCelula *origem, TCelula *destino)
+{
+	TCelula aux;
+	aux.item = origem->item;
+	origem->item = destino->item;
+	destino->item = aux.item;
+}
+
+int compare(const TAluno t1, const TAluno t2)
+{
+	if (strcmp(t1.nome, t2.nome) < 0)
+		return -1;
+	else if (strcmp(t1.nome, t2.nome) > 0)
+		return 1;
+	else
+		return 0;
 }
